@@ -19,6 +19,7 @@ public class Main {
             String query = "SELECT id, name, age FROM Students LIMIT 100";
             ResultSet rs = stmt.executeQuery(query);
 
+            System.out.println("======INSERTION===== ");
              // Populate Array
              Student[] array = new Student[100];
              int count=0;
@@ -72,6 +73,7 @@ public class Main {
             long endHashMapInsert = System.nanoTime();
             System.out.println("HashMap Insertion Time: " + (endHashMapInsert - startHashMapInsert) + " ns");
 
+            System.out.println("======SEARCH===== ");
             // Search in ArrayList
             long startArrayListSearch = System.nanoTime();
             for (Student student : arrayList) {
@@ -100,6 +102,7 @@ public class Main {
             long endHashMapSearch = System.nanoTime();
             System.out.println("HashMap Search Time: " + (endHashMapSearch - startHashMapSearch) + " ns");
 
+            System.out.println("======DELETION===== ");
             // Delete from ArrayList
             long startArrayListDelete = System.nanoTime();
             arrayList.removeIf(student -> student.getId() == 50); // Remove student with id 50
