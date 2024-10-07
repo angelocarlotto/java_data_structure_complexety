@@ -10,29 +10,29 @@ public class Main {
         try {
             // Connect to the database
             Connection conn = DatabaseConnection.getConnection();
-            //this way to instantiate the statement make possible to re-read, from the beginin the resultset.
-            Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, 
-               ResultSet.CONCUR_READ_ONLY 
-         );
-            
+            // this way to instantiate the statement make possible to re-read, from the
+            // beginin the resultset.
+            Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY);
+
             // Query to retrieve 100 records
             String query = "SELECT id, name, age FROM Students LIMIT 100";
             ResultSet rs = stmt.executeQuery(query);
 
             System.out.println("======INSERTION===== ");
-             // Populate Array
-             Student[] array = new Student[100];
-             int count=0;
-             long startArrayInsert = System.nanoTime();
-             while (rs.next()) {
-                 int id = rs.getInt("id");
-                 String name = rs.getString("name");
-                 int age = rs.getInt("age");
-                 array[count]=new Student(id, name, age);
-                 count++;
-             }
-             long endArrayInsert = System.nanoTime();
-             System.out.println("Array Insertion Time: " + (endArrayInsert - startArrayInsert) + " ns");
+            // Populate Array
+            Student[] array = new Student[100];
+            int count = 0;
+            long startArrayInsert = System.nanoTime();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                int age = rs.getInt("age");
+                array[count] = new Student(id, name, age);
+                count++;
+            }
+            long endArrayInsert = System.nanoTime();
+            System.out.println("Array Insertion Time: " + (endArrayInsert - startArrayInsert) + " ns");
 
             // Populate ArrayList
             rs.beforeFirst(); // Reset the ResultSet cursor
@@ -74,6 +74,17 @@ public class Main {
             System.out.println("HashMap Insertion Time: " + (endHashMapInsert - startHashMapInsert) + " ns");
 
             System.out.println("======SEARCH===== ");
+
+            // Search in ArrayList
+            long startArraySearch = System.nanoTime();
+            for (Student student : array) {
+                if (student.getId() == 50) { // Example search for id 50
+                    break;
+                }
+            }
+            long endArraySearch = System.nanoTime();
+            System.out.println("Array Search Time: " + (endArraySearch - startArraySearch) + " ns");
+
             // Search in ArrayList
             long startArrayListSearch = System.nanoTime();
             for (Student student : arrayList) {
@@ -103,6 +114,21 @@ public class Main {
             System.out.println("HashMap Search Time: " + (endHashMapSearch - startHashMapSearch) + " ns");
 
             System.out.println("======DELETION===== ");
+
+            // Delete from Array
+            long startArrayDelete = System.nanoTime();
+
+            count = 0;
+            for (Student student : array) {
+                if (student.getId() == 50) { // Example search for id 50
+                    break;
+                }
+                count++;
+            }
+            array[count] = null;
+            long endArrayDelete = System.nanoTime();
+            System.out.println("Array Deletion Time: " + (endArrayDelete - startArrayDelete) + " ns");
+
             // Delete from ArrayList
             long startArrayListDelete = System.nanoTime();
             arrayList.removeIf(student -> student.getId() == 50); // Remove student with id 50
@@ -130,4 +156,3 @@ public class Main {
         }
     }
 }
-
