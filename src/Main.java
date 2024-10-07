@@ -19,7 +19,22 @@ public class Main {
             String query = "SELECT id, name, age FROM Students LIMIT 100";
             ResultSet rs = stmt.executeQuery(query);
 
+             // Populate Array
+             Student[] array = new Student[100];
+             int count=0;
+             long startArrayInsert = System.nanoTime();
+             while (rs.next()) {
+                 int id = rs.getInt("id");
+                 String name = rs.getString("name");
+                 int age = rs.getInt("age");
+                 array[count]=new Student(id, name, age);
+                 count++;
+             }
+             long endArrayInsert = System.nanoTime();
+             System.out.println("Array Insertion Time: " + (endArrayInsert - startArrayInsert) + " ns");
+
             // Populate ArrayList
+            rs.beforeFirst(); // Reset the ResultSet cursor
             ArrayList<Student> arrayList = new ArrayList<>();
             long startArrayListInsert = System.nanoTime();
             while (rs.next()) {
