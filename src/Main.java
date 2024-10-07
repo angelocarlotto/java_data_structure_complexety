@@ -112,20 +112,3 @@ public class Main {
     }
 }
 
-class Student {
-    private int id;
-    private String name;
-    private int age;
-
-    public Student(int id, String name, int age) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    // Additional getters and setters if needed
-}
