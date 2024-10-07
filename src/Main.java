@@ -10,8 +10,9 @@ public class Main {
         try {
             // Connect to the database
             Connection conn = DatabaseConnection.getConnection();
-            Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, // Allows scrolling
-               ResultSet.CONCUR_READ_ONLY // Read-only mode
+            //this way to instantiate the statement make possible to re-read, from the beginin the resultset.
+            Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, 
+               ResultSet.CONCUR_READ_ONLY 
          );
             
             // Query to retrieve 100 records
